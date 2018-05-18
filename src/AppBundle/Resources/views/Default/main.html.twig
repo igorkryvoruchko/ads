@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-hello!
+    <a href="{{ path('fos_user_security_logout') }}">Logout</a><br>
+Hello, {{ app.user.username }}!
 {% endblock %}
