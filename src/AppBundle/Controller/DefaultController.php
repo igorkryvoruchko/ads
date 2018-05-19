@@ -16,7 +16,19 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $em    = $this->get('doctrine.orm.entity_manager');
+        $dql   = "SELECT p FROM AppBundle:Post p";
+        $query = $em->createQuery($dql);
 
-        return $this->render('AppBundle:Default:main.html.twig');
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            5/*limit per page*/
+        );
+
+        return $this->render('AppBundle:Default:main.html.twig',
+            ['pagination' => $pagination]
+            );
     }
 }

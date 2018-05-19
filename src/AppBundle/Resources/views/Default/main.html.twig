@@ -1,6 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <a href="{{ path('fos_user_security_logout') }}">Logout</a><br>
-Hello, {{ app.user.username }}!
+    <p><a href="{{ path('fos_user_security_logout') }}">Logout</a></p>
+    <p>Hello, {{ app.user.username }}!</p>
+    <div class="count">
+        {{ pagination.getTotalItemCount }}
+    </div>
+    {% for article in pagination %}
+        <p>{{ article.id }} || {{ article.title }} || {{ article.description }}</p>
+    {% endfor %}
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 {% endblock %}
